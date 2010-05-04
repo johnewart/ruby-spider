@@ -47,14 +47,14 @@ class RobotRules
           next unless disallow.port.nil?   or disallow.port == uri.port
           next unless disallow.host.nil?   or disallow.host.downcase == uri.host.downcase
 
-          disallowed_path = disallow.path					
-          disallowed_path = "/"            				if disallow.path.empty?
+          disallowed_path = disallow.path          
+          disallowed_path = "/"                   if disallow.path.empty?
           disallowed_path = "/#{disallowed_path}" unless disallowed_path[0] == ?/
 
-					if disallow.query 
-						disallowed_path << "?" << disallow.query
-					end
-					
+          if disallow.query 
+            disallowed_path << "?" << disallow.query
+          end
+
           current << disallowed_path
         end
       end

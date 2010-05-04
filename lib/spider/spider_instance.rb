@@ -283,9 +283,12 @@ class SpiderInstance
 
   def generate_next_urls(a_url, resp) #:nodoc:
     web_page = resp.body
+    uri = URI.parse(a_url)
+    
     base_url = (web_page.scan(/base\s+href="(.*?)"/i).flatten +
-                [a_url[0,a_url.rindex('/')]])[0]
+                ["#{uri.scheme}://#{uri.host}#{uri.path}"])[0]
     base_url = remove_trailing_slash(base_url)
+
     web_page.scan(/href="(.*?)"/i).flatten.map do |link|
       begin
         parsed_link = URI.parse(link)
